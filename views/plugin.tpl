@@ -84,7 +84,6 @@
     var source = undefined;
     if (referrerHostname.match(/t\.co/)) source = 'twitter.com';
     if (referrerHostname.match(/(m\.|l\.|lm\.)?facebook\.com/)) source = 'facebook.com';
-    if (referrerHostname == 'search.yahoo.co.jp') source = 'yahoo';
 
     if (source) {
       this.tracker.set('campaignSource', source);
@@ -114,7 +113,6 @@
     if (referrerHostname.match(/mail[0-9]+.bizmail[0-9]+.com/)) medium = 'email';
 
     // Organic
-    if (referrerHostname == 'search.yahoo.co.jp') medium = 'organic';
 
     // Social
     if (referrerHostname.match(/t.co/)) medium = 'social';
