@@ -1,3 +1,0 @@
-This download link is no longer updated.
-To get the most recent version of closure-compiler, please use:
-http://dl.google.com/closure-compiler/compiler-latest.tar.gz
