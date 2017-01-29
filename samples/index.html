@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>sample power-analytics.appspot.com</title>
+	</head>
+	<body>
+		<h1>sample power-analytics.appspot.com</h1>
+		<p>
+		<a href="https://www.google.com">Google</a>
+		<a href="tel:08051651281">080-5165-1281</a>
+		</p>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-66588706-3', 'auto');
+			ga('require', 'powerup');
+			ga('powerup:dimensions', {
+				'clientid': 1,
+				'sessionid': 2,
+				'timestamp': 3,
+				'ipaddress': 4,
+				'useragent': 5
+			});
+			ga('powerup:spamFilter', {
+				'dimension': { 'index': 6, 'value': 'Referrer Spam Avoidance' }
+			});
+			ga('powerup:source');
+			ga('powerup:medium');
+      ga('powerup:outbound');
+      ga('powerup:tel');
+      ga('powerup:youtube');
+			ga('send', 'pageview');
+		</script>
+		<script type="text/javascript" async src="//localhost:8080/plugin.min.js"></script>
+	</body>
+</html>
