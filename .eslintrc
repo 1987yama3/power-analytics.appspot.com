@@ -1,0 +1,26 @@
+{
+  "env": {
+    "browser": true
+  },
+  "globals": {
+  },
+  "rules": {
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "no-multi-spaces": [2],
+    "no-mixed-spaces-and-tabs": [2],
+    "brace-style": [1, "1tbs", {
+      "allowSingleLine": true
+    }],
+    "comma-spacing": [1, {
+      "before": false, 
+      "after": true
+    }],
+    "semi-spacing": [ 1, {
+      "before": false, 
+      "after": true
+    }],
+    "space-before-blocks": [2, "always"]
+  }
+}
+
