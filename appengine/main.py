@@ -35,14 +35,14 @@ def plugin():
     response.content_type = 'text/javascript; charset=utf-8'
     ipaddress = request.remote_addr
     tracking(request, response)
-    return template('views/plugin', ipaddress = ipaddress)
+    return template('views/plugins', ipaddress = ipaddress)
 
 @bottle.route('/plugin.min.js')
 def plugin():
     response.content_type = 'text/javascript; charset=utf-8'
     ipaddress = request.remote_addr
     tracking(request, response)
-    return template('views/plugin-min', ipaddress = ipaddress)
+    return template('views/plugins.min', ipaddress = ipaddress)
 
 
 @bottle.error(404)

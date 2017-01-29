@@ -8,11 +8,17 @@ const clean = require('gulp-clean');
 const eslint = require('gulp-eslint');
 const exec = require('child_process').exec;
 
+const config = {
+  dir: {
+    dist: './appengine/views'
+  }
+};
+
 gulp.task('js:browserify', function() {
   return browserify('./src/index.js', { debug: true })
     .bundle()
     .pipe(source('./plugins.js'))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest(config.dir.dist + '/'));
 });
 
 gulp.task('js:eslint', function() {
@@ -24,29 +30,29 @@ gulp.task('js:eslint', function() {
 });
 
 gulp.task('js:uglify', function() {
-  return gulp.src('./dist/plugins.js')
+  return gulp.src(config.dir.dist + '/plugins.js')
     .pipe(uglify({
       preserveComments: 'some'
     }))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest(config.dir.dist + '/'));
 });
 
 gulp.task('js:rename', function() {
-  return gulp.src('./dist/*.js')
+  return gulp.src(config.dir.dist + '/*.js')
     .pipe(rename({
       extname: '.tpl'
     }))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest(config.dir.dist));
 });
 
 gulp.task('js:clean', function() {
-  return gulp.src('./dist', { read: false })
+  return gulp.src(config.dir.dist, { read: false })
     .pipe(clean());
 });
 
 gulp.task('deploy', function(done) {
-  var command = 'appcfg.py -A power-analytics update .';
+  var command = 'appcfg.py -A power-analytics update ./appengine';
   exec(command, function(err, stdout, stderr) {
     if (stdout) console.log(strout);
     if (stderr) console.error(stderr);
