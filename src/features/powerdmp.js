@@ -6,7 +6,7 @@ module.exports = function() {
   params.push('window_size=' + [window.innerWidth, window.innerHeight].join('x'));
   params.push('title=' + document.title);
   params.push('no_cache=' + (new Date()).getTime());
-  img.src = '//power-dmp.link/pixel.gif?' + params.join('?');
+  img.src = '//power-dmp.link/pixel.gif?' + params.join('&');
   img.style = 'display: none;';
   document.body.appendChild(img);
 }
