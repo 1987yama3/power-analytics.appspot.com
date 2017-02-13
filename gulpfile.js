@@ -54,7 +54,7 @@ gulp.task('js:clean', function() {
 gulp.task('deploy', function(done) {
   var command = 'appcfg.py -A power-analytics update ./appengine';
   exec(command, function(err, stdout, stderr) {
-    if (stdout) console.log(strout);
+    if (stdout) console.log(stdout);
     if (stderr) console.error(stderr);
     done();
   });
