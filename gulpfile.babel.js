@@ -57,7 +57,11 @@ gulp.task('js:clean', () => {
     .pipe(clean());
 });
 
-gulp.task('js:test:e2e', ['js:browserify', 'js:eslint', 'js:uglify', 'js:rename', 'js:selenium'], () => {
+gulp.task('test', ['build', 'js:serve', 'js:selenium', 'js:test:e2e'], () => {
+  console.log('test');
+});
+
+gulp.task('js:test:e2e', ['build', 'js:serve', 'js:selenium'], () => {
   const stopServers = () => {
     server.stop();
     if (!process.env.CI) {
@@ -69,9 +73,13 @@ gulp.task('js:test:e2e', ['js:browserify', 'js:eslint', 'js:uglify', 'js:rename'
     .on('end', stopServers);
 });
 
+gulp.task('js:serve', (done) => {
+  server.start(done);
+  process.on('exit', server.stop.bind(server));
+});
+
 gulp.task('js:selenium', (done) => {
   if (process.env.CI) return done();
-  console.log(seleniumServerJar.path);
   seleniumServer = spawn('java', ['-jar', seleniumServerJar.path]);
   seleniumServer.stderr.on('data', (data) => {
     if (data.indexOf('Selenium Server is up and running') > -1) {
