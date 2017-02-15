@@ -1,12 +1,12 @@
-const browserify = require('browserify');
-const gulp = require('gulp');
-const source = require('vinyl-source-stream');
-const uglify = require('gulp-uglify');
-const rename = require('gulp-rename');
-const runSequence = require('run-sequence');
-const clean = require('gulp-clean');
-const eslint = require('gulp-eslint');
-const exec = require('child_process').exec;
+import browserify from 'browserify';
+import gulp from 'gulp';
+import source from 'vinyl-source-stream';
+import uglify from 'gulp-uglify';
+import rename from 'gulp-rename';
+import runSequence from 'run-sequence';
+import clean from 'gulp-clean';
+import eslint from 'gulp-eslint';
+import exec from 'child_process';
 
 const config = {
   dir: {
@@ -14,14 +14,14 @@ const config = {
   }
 };
 
-gulp.task('js:browserify', function() {
+gulp.task('js:browserify', () => {
   return browserify('./src/index.js', { debug: true })
     .bundle()
     .pipe(source('./plugins.js'))
     .pipe(gulp.dest(config.dir.dist + '/'));
 });
 
-gulp.task('js:eslint', function() {
+gulp.task('js:eslint', () => {
   return gulp.src('./src/**/*.js')
     .pipe(eslint({
       useEslintrc: true
@@ -29,7 +29,7 @@ gulp.task('js:eslint', function() {
     .pipe(eslint.format());
 });
 
-gulp.task('js:uglify', function() {
+gulp.task('js:uglify', () => {
   return gulp.src(config.dir.dist + '/plugins.js')
     .pipe(uglify({
       preserveComments: 'some'
@@ -38,7 +38,7 @@ gulp.task('js:uglify', function() {
     .pipe(gulp.dest(config.dir.dist + '/'));
 });
 
-gulp.task('js:rename', function() {
+gulp.task('js:rename', () => {
   return gulp.src(config.dir.dist + '/*.js')
     .pipe(rename({
       extname: '.tpl'
@@ -46,21 +46,21 @@ gulp.task('js:rename', function() {
     .pipe(gulp.dest(config.dir.dist));
 });
 
-gulp.task('js:clean', function() {
+gulp.task('js:clean', () => {
   return gulp.src(config.dir.dist, { read: false })
     .pipe(clean());
 });
 
-gulp.task('deploy', function(done) {
+gulp.task('deploy', (done) => {
   var command = 'appcfg.py -A power-analytics update ./appengine';
-  exec(command, function(err, stdout, stderr) {
+  exec(command, (err, stdout, stderr) => {
     if (stdout) console.log(stdout);
     if (stderr) console.error(stderr);
     done();
   });
 });
 
-gulp.task('build', function(done) {
+gulp.task('build', (done) => {
   runSequence('js:clean', 'js:eslint', 'js:browserify', 'js:uglify', 'js:rename', done);
 });
 

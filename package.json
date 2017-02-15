@@ -36,6 +36,7 @@
     "gulp-shell": "^0.5.2",
     "gulp-uglify": "^2.0.1",
     "mocha": "^3.2.0",
+    "rollup-plugin-babel": "^2.7.1",
     "run-sequence": "^1.2.2",
     "selenium-standalone": "^6.0.1",
     "vinyl-source-stream": "^1.1.0",
