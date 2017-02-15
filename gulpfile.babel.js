@@ -6,13 +6,19 @@ import rename from 'gulp-rename';
 import runSequence from 'run-sequence';
 import clean from 'gulp-clean';
 import eslint from 'gulp-eslint';
-import exec from 'child_process';
+import {spawn} from 'child_process';
+import seleniumServerJar from 'selenium-server-standalone-jar';
+import webdriver from 'gulp-webdriver';
+
+import * as server from './test/e2e/server';
 
 const config = {
   dir: {
     dist: './appengine/views'
   }
 };
+
+let seleniumServer;
 
 gulp.task('js:browserify', () => {
   return browserify('./src/index.js', { debug: true })
@@ -49,6 +55,30 @@ gulp.task('js:rename', () => {
 gulp.task('js:clean', () => {
   return gulp.src(config.dir.dist, { read: false })
     .pipe(clean());
+});
+
+gulp.task('js:test:e2e', ['js:browserify', 'js:eslint', 'js:uglify', 'js:rename', 'js:selenium'], () => {
+  const stopServers = () => {
+    server.stop();
+    if (!process.env.CI) {
+      seleniumServer.kill();
+    }
+  };
+  return gulp.src('./test/e2e/wdio.conf.js')
+    .pipe(webdriver())
+    .on('end', stopServers);
+});
+
+gulp.task('js:selenium', (done) => {
+  if (process.env.CI) return done();
+  console.log(seleniumServerJar.path);
+  seleniumServer = spawn('java', ['-jar', seleniumServerJar.path]);
+  seleniumServer.stderr.on('data', (data) => {
+    if (data.indexOf('Selenium Server is up and running') > -1) {
+      done();
+    }
+  });
+  process.on('exit', seleniumServer.kill.bind(seleniumServer));
 });
 
 gulp.task('deploy', (done) => {
