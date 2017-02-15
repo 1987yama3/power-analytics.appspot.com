@@ -22,6 +22,7 @@
   "homepage": "https://github.com/1987yama3/power-analytics.appspot.com#readme",
   "devDependencies": {
     "browserify": "^14.0.0",
+    "chai": "^3.5.0",
     "delegate": "^3.1.1",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
@@ -29,7 +30,10 @@
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.5.2",
     "gulp-uglify": "^2.0.1",
+    "mocha": "^3.2.0",
     "run-sequence": "^1.2.2",
-    "vinyl-source-stream": "^1.1.0"
+    "selenium-standalone": "^6.0.1",
+    "vinyl-source-stream": "^1.1.0",
+    "webdriverio": "^4.6.2"
   }
 }
