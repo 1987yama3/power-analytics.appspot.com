@@ -24,28 +24,6 @@ const config = {
 
 let seleniumServer;
 
-gulp.task('webserver', () => {
-  return gulp.src('./test/www')
-    .pipe(webserver({
-      host: 'localhost',
-      port: 8888
-    }));
-});
-
-gulp.task('protractor', () => {
-  return gulp.src(['./test/e2e/**/*.test.js'])
-    .pipe(babel())
-    .pipe(protractor({
-      configFile: './test/e2e/protractor.conf.js',
-      args: [ '--baseUrl', 'http://localhost:8888' ]
-    }))
-    .on('error', (e) => { throw e; });
-});
-
-gulp.task('test:e2e', (done) => {
-  runSequence('webserver', 'protractor', done);
-});
-
 gulp.task('js:browserify', () => {
   return browserify('./src/index.js', { debug: true })
     .bundle()
@@ -87,6 +65,29 @@ gulp.task('js:test:unit', () => {
   return gulp.src('./test/unit/**/*.test.js', { read: false })
     .pipe(mocha({}));
 });
+
+gulp.task('js:test:webserver', () => {
+  return gulp.src('./test/www')
+    .pipe(webserver({
+      host: 'localhost',
+      port: 8888
+    }));
+});
+
+gulp.task('js:test:protractor', () => {
+  return gulp.src(['./test/e2e/**/*.test.js'])
+    .pipe(babel())
+    .pipe(protractor({
+      configFile: './test/e2e/protractor.conf.js',
+      args: [ '--baseUrl', 'http://localhost:8888' ]
+    }))
+    .on('error', (e) => { throw e; });
+});
+
+gulp.task('js:test:e2e', (done) => {
+  runSequence('js:test:webserver', 'js:test:protractor', done);
+});
+
 
 gulp.task('deploy', (done) => {
   var command = 'appcfg.py -A power-analytics update ./appengine';

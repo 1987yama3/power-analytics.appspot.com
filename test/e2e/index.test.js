@@ -1,5 +1,6 @@
+import assert from 'assert';
 describe('index', () => {
   it('debug', () => {
-    expect(true).toBe(true);
+    assert(true);
   });
 });
