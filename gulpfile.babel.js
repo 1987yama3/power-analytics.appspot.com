@@ -73,6 +73,10 @@ gulp.task('js:test:e2e', ['build', 'js:serve', 'js:selenium'], () => {
     .on('end', stopServers);
 });
 
+gulp.task('js:test:unit', () => {
+  spawn('./node_modules/mocha/bin/mocha',  ['--compilers', 'js:babel-register', 'test/unit/**/*.test.js']);
+});
+
 gulp.task('js:serve', (done) => {
   server.start(done);
   process.on('exit', server.stop.bind(server));
