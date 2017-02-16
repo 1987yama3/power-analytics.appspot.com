@@ -1,5 +1,5 @@
-var provide = require('./provide');
-var PowerAnalytics = require('./plugins');
+const provide = require('./provide');
+const PowerAnalytics = require('./plugins');
 require('./features/powerdmp')();
 
 provide('powerup', PowerAnalytics);

@@ -5,12 +5,13 @@ module.exports = {
   },
 
   loadScript: function(url, callback) {
-    var done = false;
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
+    let done = false;
+    const head = document.getElementsByTagName('head')[0];
+    const script = document.createElement('script');
     script.src = url;
     script.onload = script.onreadystatechange = function() {
-      if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
+      if (!done && (!this.readyState || this.readyState === 'loaded'
+            || this.readyState === 'complete')) {
         done = true;
         callback();
         script.onload = script.onreadystatechange = null;
@@ -34,25 +35,27 @@ module.exports = {
   },
 
   random: function(length) {
-    var result = '';
-    var base_string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    for (var i = 0; i < length; i++) {
-      result += base_string.charAt(Math.floor(Math.random() * base_string.length));
+    let result = '';
+    const baseString
+      = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for (let i = 0; i < length; i++) {
+      result +=
+        baseString.charAt(Math.floor(Math.random() * baseString.length));
     }
     return result;
   },
 
   timestamp: function() {
-    var d = new Date();
+    const d = new Date();
     return [
       d.getFullYear(),
       ('0' + (d.getMonth() + 1)).slice(-2),
-      ('0' + d.getDate()).slice(-2)
+      ('0' + d.getDate()).slice(-2),
     ].join('/') + ' ' + [
       ('0' + d.getHours()).slice(-2),
       ('0' + d.getMinutes()).slice(-2),
       ('0' + d.getSeconds()).slice(-2),
-      ('00' + d.getMilliseconds()).slice(-3)
+      ('00' + d.getMilliseconds()).slice(-3),
     ].join(':');
-  }
+  },
 };

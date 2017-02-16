@@ -1,18 +1,18 @@
-var parseUrl = require('url');
+const parseUrl = require('url');
 
 module.exports = function() {
-  var current_url = parseUrl(location.href);
-  var referrer_url = parseUrl(document.referrer);
-  var override_source = undefined;
-  if (current_url.query.indexOf('utm_source=') >= 0) return;
-  if (referrer_url.hostname == 't.co') override_source = 'twitter.com';
-  if (referrer_url.hostname == 'm.facebook.com'
-      || referrer_url.hostname == 'l.facebook.com'
-      || referrer_url.hostname == 'lm.facebook.com') {
-    override_source = 'facebook.com';
+  const currentUrl = parseUrl(location.href);
+  const referrerUrl = parseUrl(document.referrer);
+  let overrideSource = undefined;
+  if (currentUrl.query.indexOf('utm_source=') >= 0) return;
+  if (referrerUrl.hostname == 't.co') overrideSource = 'twitter.com';
+  if (referrerUrl.hostname == 'm.facebook.com'
+      || referrerUrl.hostname == 'l.facebook.com'
+      || referrerUrl.hostname == 'lm.facebook.com') {
+    overrideSource = 'facebook.com';
   }
 
-  if (override_source) {
-    this.tracker.set('campaignSource', override_source);
+  if (overrideSource) {
+    this.tracker.set('campaignSource', overrideSource);
   }
 };
