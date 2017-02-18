@@ -64,12 +64,12 @@ export const getHitLogs = (testId) => {
 };
 
 const logPayload = (payload) => {
-  const paramsToIgnore = 'v did tid a z ul de sd sr vp je fl jid'.split(' ');
-  const hit = qs.parse(payload);
-  Object.keys(hit).forEach((key) => {
-    if (!(key.charAt(0) === '_' || paramsToIgnore.includes(key))) {
-      process.stdout.write('  ' + key + ': ' + hit[key] + '\n');
-    }
-  });
+//  const paramsToIgnore = 'v did tid a z ul de sd sr vp je fl jid'.split(' ');
+//  const hit = qs.parse(payload);
+//  Object.keys(hit).forEach((key) => {
+//    if (!(key.charAt(0) === '_' || paramsToIgnore.includes(key))) {
+//      process.stdout.write('  ' + key + ': ' + hit[key] + '\n');
+//    }
+//  });
 };
 
