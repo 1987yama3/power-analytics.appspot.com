@@ -14,13 +14,13 @@ const getStateName = (eventId) => {
 module.exports = function() {
   const tracker = this.tracker;
 
-  const callback = function(event) {
+  const callback = (event) => {
     const videoData = event.target['getVideoData']();
     const actionName = getStateName(event['data']);
     const labelName = videoData.video_id + ' : ' + videoData.title;
     tracker.send('event', 'Youtube Action', actionName, labelName);
   };
-  loadScript('https://www.youtube.com/iframe_api', function() {
+  loadScript('https://www.youtube.com/iframe_api', () => {
     const iframes = document.querySelectorAll('iframe');
     for (let i = 0; i < iframes.length; i++) {
       if (iframes[i].src.indexOf('youtube.com/embed/') >= 0

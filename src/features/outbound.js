@@ -5,7 +5,7 @@ module.exports = function() {
   delegate(document, 'a', 'click', (e) => {
     if (e.delegateTarget.hostname !== location.hostname) {
       tracker.send('event', 'Outbound Link', 'Click',
-        e.delegateTarget.getAttribute('href'));
+          e.delegateTarget.getAttribute('href'));
     }
   }, false);
 };

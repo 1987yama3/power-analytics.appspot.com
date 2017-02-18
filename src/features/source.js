@@ -1,4 +1,4 @@
-const parseUrl = require('url');
+import parseUrl from 'url';
 
 module.exports = function() {
   const currentUrl = parseUrl(location.href);
