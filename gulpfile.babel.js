@@ -3,17 +3,12 @@ import gulp from 'gulp';
 import source from 'vinyl-source-stream';
 import uglify from 'gulp-uglify';
 import rename from 'gulp-rename';
-import copy from 'gulp-copy';
 import babel from 'gulp-babel';
 import runSequence from 'run-sequence';
 import clean from 'gulp-clean';
 import eslint from 'gulp-eslint';
-import {spawn} from 'child_process';
-import seleniumServerJar from 'selenium-server-standalone-jar';
-import webdriver from 'gulp-webdriver';
-import { protractor, webdriver_standalone } from 'gulp-protractor';
+import { protractor } from 'gulp-protractor';
 import mocha from 'gulp-mocha';
-import webserver from 'gulp-webserver';
 
 import * as server from './test/e2e/server';
 
@@ -22,9 +17,6 @@ const config = {
     dist: './appengine/views'
   }
 };
-
-let seleniumServer;
-
 
 gulp.task('js:browserify', () => {
   return browserify('./src/index.js', { debug: true })
@@ -65,6 +57,9 @@ gulp.task('js:rename', () => {
     .pipe(gulp.dest(config.dir.dist));
 });
 
+/**
+ * ビルド先のディレクトリ内に存在するファイルを削除する.
+ */
 gulp.task('js:clean', () => {
   return gulp.src(config.dir.dist, { read: false })
     .pipe(clean());
