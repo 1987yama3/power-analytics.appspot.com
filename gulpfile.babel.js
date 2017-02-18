@@ -24,6 +24,7 @@ const config = {
 
 let seleniumServer;
 
+
 gulp.task('js:browserify', () => {
   return browserify('./src/index.js', { debug: true })
     .bundle()
@@ -66,26 +67,30 @@ gulp.task('js:test:unit', () => {
     .pipe(mocha({}));
 });
 
-gulp.task('js:test:webserver', () => {
-  return gulp.src('./test/www')
-    .pipe(webserver({
-      host: 'localhost',
-      port: 8888
-    }));
+gulp.task('js:test:server:start', (done) => {
+  server.start({
+    port: 8888,
+    static_path: './test/www/'
+  }, done);
+  process.on('exit', server.stop.bind(server));
+});
+
+gulp.task('js:test:server:stop', (done) => {
+  server.stop();
+  done();
 });
 
 gulp.task('js:test:protractor', () => {
   return gulp.src(['./test/e2e/**/*.test.js'])
     .pipe(babel())
     .pipe(protractor({
-      configFile: './test/e2e/protractor.conf.js',
-      args: [ '--baseUrl', 'http://localhost:8888' ]
+      configFile: './test/e2e/protractor.conf.js'
     }))
     .on('error', (e) => { throw e; });
 });
 
 gulp.task('js:test:e2e', (done) => {
-  runSequence('js:test:webserver', 'js:test:protractor', done);
+  runSequence('js:test:server:start', 'js:test:protractor', 'js:test:server:stop', done);
 });
 
 
