@@ -1,4 +1,4 @@
-const utilities = require('./../utilities');
+import {loadScript} from '../utilities';
 
 const getStateName = (eventId) => {
   switch(eventId) {
@@ -20,7 +20,7 @@ module.exports = function() {
     const labelName = videoData.video_id + ' : ' + videoData.title;
     tracker.send('event', 'Youtube Action', actionName, labelName);
   };
-  utilities.loadScript('https://www.youtube.com/iframe_api', function() {
+  loadScript('https://www.youtube.com/iframe_api', function() {
     const iframes = document.querySelectorAll('iframe');
     for (let i = 0; i < iframes.length; i++) {
       if (iframes[i].src.indexOf('youtube.com/embed/') >= 0

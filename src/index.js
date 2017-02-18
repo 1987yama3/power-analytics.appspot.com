@@ -1,5 +1,5 @@
 require('babel-register');
-const provide = require('./provide');
+import provide from './provide';
 const PowerAnalytics = require('./plugins');
 require('./features/powerdmp')();
 

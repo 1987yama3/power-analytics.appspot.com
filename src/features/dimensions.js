@@ -1,22 +1,22 @@
-const utilities = require('./../utilities');
+import {random, timestamp} from '../utilities';
 
-module.exports = function(config) {
-  const clientid = this.tracker.get('clientId');
+export default (config) => {
+  const clientid = self.tracker.get('clientId');
   if (typeof(config['clientid']) !== 'undefined') {
-    this.tracker.set('dimension' + config['clientid'], clientid);
+    self.tracker.set('dimension' + config['clientid'], clientid);
   }
   if (typeof(config['sessionid']) !== 'undefined') {
-    this.tracker.set('dimension' + config['sessionid'],
-        clientid + '#' + utilities.random(8));
+    self.tracker.set('dimension' + config['sessionid'],
+        clientid + '#' + random(8));
   }
   if (typeof(config['timestamp']) !== 'undefined') {
-    this.tracker.set('dimension' + config['timestamp'], utilities.timestamp());
+    self.tracker.set('dimension' + config['timestamp'], timestamp());
   }
   if (typeof(config['ipaddress']) !== 'undefined') {
-    this.tracker.set('dimension' + config['ipaddress'], '{{ipaddress}}');
+    self.tracker.set('dimension' + config['ipaddress'], '{{ipaddress}}');
   }
   if (typeof(config['useragent']) !== 'undefined') {
-    this.tracker.set('dimension' + config['useragent'], navigator.userAgent);
+    self.tracker.set('dimension' + config['useragent'], navigator.userAgent);
   }
 };
 

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-const utilities = require('./../../src/utilities');
+import * as utilities from '../../src/utilities';
 
 describe('utilities.capitalize()', () => {
   it('capitalize', () => {

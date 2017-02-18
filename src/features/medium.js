@@ -1,6 +1,6 @@
-const parseUrl = require('url');
+import parseUrl from 'url';
 
-module.exports = function() {
+export default () => {
   const currentUrl = parseUrl(location.href);
   const referrerUrl = parseUrl(document.referrer);
   let overrideMedium = undefined;
@@ -45,6 +45,6 @@ module.exports = function() {
   }
 
   if (overrideMedium) {
-    this.tracker.set('campaignMedium', overrideMedium);
+    self.tracker.set('campaignMedium', overrideMedium);
   }
 };
