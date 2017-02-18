@@ -38,4 +38,4 @@ export const sendEmptyHit = (baseUrl, testId) => {
   const beacon = new Image();
   const z = Math.round(Math.random() * 0xffffffff);
   beacon.src = `${baseUrl}/collect/${testId}?empty=1&index=1?nocache=${z}`;
-}
+};

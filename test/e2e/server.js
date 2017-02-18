@@ -21,19 +21,19 @@ export const start = (config, done) => {
   });
   app.post('/collect/:testId', (req, res) => {
     const chunks = [];
-    req
-      .on('data', (chunk) => { chunks.push(chunk) })
-      .on('end', () => {
-        const payload = Buffer.concat(chunks).toString();
-        logPayload(payload);
-        const logFile = getLogFile(req.params.testId);
-        fs.ensureDirSync(LOG_PATH);
-        fs.appendFileSync(logFile, payload + '\n');
-        res.end();
-      });
+    req.on('data', (chunk) => {
+      chunks.push(chunk);
+    }).on('end', () => {
+      const payload = Buffer.concat(chunks).toString();
+      logPayload(payload);
+      const logFile = getLogFile(req.params.testId);
+      fs.ensureDirSync(LOG_PATH);
+      fs.appendFileSync(logFile, payload + '\n');
+      res.end();
+    });
   });
   server = app.listen(config.port, done);
-}
+};
 
 export const stop = () => {
   if (server) {
@@ -64,7 +64,7 @@ export const getHitLogs = (testId) => {
 };
 
 const logPayload = (payload) => {
-  const paramsToIgnore = [ 'v', 'did', 'tid', 'a', 'z', 'ul', 'de', 'sd', 'sr', 'vp', 'je', 'fl', 'jid' ];
+  const paramsToIgnore = 'v did tid a z ul de sd sr vp je fl jid'.split(' ');
   const hit = qs.parse(payload);
   Object.keys(hit).forEach((key) => {
     if (!(key.charAt(0) === '_' || paramsToIgnore.includes(key))) {

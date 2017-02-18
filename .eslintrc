@@ -4,11 +4,12 @@
     "es6": true,
     "node": true
   },
-  "parseOptions": {
+  "parserOptions": {
     "sourceType": "module"
-  },    
+  },
   "globals": {
-    "YT": true
+    "YT": true,
+    "browser": true
   },
   "extends": [
     "eslint:recommended",
