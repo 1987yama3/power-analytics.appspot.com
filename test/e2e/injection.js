@@ -3,3 +3,10 @@ export const updateReferrer = (referrer) => {
     value: referrer,
   });
 };
+
+export const updateUserAgent = (useragent) => {
+  Object.defineProperty(navigator, 'userAgent', {
+    value: useragent,
+  });
+};
+
