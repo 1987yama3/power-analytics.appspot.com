@@ -1,10 +1,16 @@
-import parseUrl from 'url';
+import url from 'url';
 
 module.exports = function() {
-  const currentUrl = parseUrl(location.href);
-  const referrerUrl = parseUrl(document.referrer);
+  const currentUrl = url.parse(location.href, true);
+  const referrerUrl = url.parse(document.referrer, true);
   let overrideMedium = undefined;
-  if (typeof(currentUrl.query['utm_medium']) !== 'undefined') return;
+
+  if (currentUrl.query.utm_medium) {
+    return;
+  }
+  if (currentUrl.query.utm_id) {
+    return;
+  }
 
   // Email
   if (referrerUrl.hostname.indexOf('mail.yahoo.co.jp') >= 0
