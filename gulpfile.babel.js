@@ -71,7 +71,9 @@ gulp.task('js:clean', () => {
  */
 gulp.task('js:test:unit', () => {
   return gulp.src('./test/unit/**/*.test.js', { read: false })
-    .pipe(mocha({}));
+    .pipe(mocha({
+      reporter: 'spec'
+    }));
 });
 
 /**
