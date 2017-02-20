@@ -9,7 +9,6 @@ let testId;
 describe('Source', () => {
   beforeEach((done) => {
     testId = uuid();
-    console.log(testId);
     done();
   });
 
