@@ -2,12 +2,12 @@ import {loadScript} from '../utilities';
 
 const getStateName = (eventId) => {
   switch(eventId) {
-  case YT.PlayerState.ENDED: return 'YT.PlayerState.ENDED';
-  case YT.PlayerState.PLAYING: return 'YT.PlayerState.PLAYING';
-  case YT.PlayerState.PAUSED: return 'YT.PlayerState.PAUSED';
-  case YT.PlayerState.BUFFERING: return 'YT.PlayerState.BUFFERING';
-  case YT.PlayerState.CUED: return 'YT.PlayerState.CUED';
-  case YT.PlayerState.UNSTARTED: return 'YT.PlayerState.UNSTARTED';
+  case YT.PlayerState.ENDED:      return 'YT.PlayerState.ENDED';
+  case YT.PlayerState.PLAYING:    return 'YT.PlayerState.PLAYING';
+  case YT.PlayerState.PAUSED:     return 'YT.PlayerState.PAUSED';
+  case YT.PlayerState.BUFFERING:  return 'YT.PlayerState.BUFFERING';
+  case YT.PlayerState.CUED:       return 'YT.PlayerState.CUED';
+  case YT.PlayerState.UNSTARTED:  return 'YT.PlayerState.UNSTARTED';
   }
   return 'Unknown';
 };
