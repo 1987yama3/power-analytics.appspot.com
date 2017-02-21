@@ -1,16 +1,16 @@
 module.exports = function(config) {
-  var referrer = document.referrer;
-  var dimensionValue = config['dimension']['value'];
-  var spam_list = [
+  let dimensionValue = config['dimension']['value'];
+  const referrer = document.referrer;
+  const spamList = [
     '100dollars-seo.com',
     'semaltmedia.com',
     'videos-for-your-business.com',
     'buttons-for-website.com',
     'success-seo.com',
-    'video--production.com'
+    'video--production.com',
   ];
-  for (var i = 0; i < spam_list.length; i++) {
-    if (referrer.indexOf(spam_list[i]) >= 0) {
+  for (let i = 0; i < spamList.length; i++) {
+    if (referrer.indexOf(spamList[i]) >= 0) {
       dimensionValue = 'Spam Traffic';
     }
   }

@@ -1,6 +1,6 @@
-function PowerAnalytics(tracker) {
-  this.tracker = tracker;
-}
+const PowerAnalytics = (tracker) => {
+  PowerAnalytics.prototype.tracker = tracker;
+};
 
 PowerAnalytics.prototype.dimensions = require('./features/dimensions');
 PowerAnalytics.prototype.source = require('./features/source');

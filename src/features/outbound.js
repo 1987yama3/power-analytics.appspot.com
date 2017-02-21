@@ -1,12 +1,11 @@
-var delegate = require('delegate');
+import delegate from 'delegate';
 
 module.exports = function() {
-  var tracker = this.tracker;
-  console.log(tracker);
-  delegate(document, 'a', 'click', function(e) {
-    console.log(e);
+  const tracker = this.tracker;
+  delegate(document, 'a', 'click', (e) => {
     if (e.delegateTarget.hostname !== location.hostname) {
-      tracker.send('event', 'Outbound Link', 'Click', e.delegateTarget.getAttribute('href'));
+      tracker.send('event', 'Outbound Link', 'Click',
+          e.delegateTarget.getAttribute('href'));
     }
   }, false);
 };

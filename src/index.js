@@ -1,5 +1,6 @@
-var provide = require('./provide');
-var PowerAnalytics = require('./plugins');
+require('babel-register');
+import provide from './provide';
+const PowerAnalytics = require('./plugins');
 require('./features/powerdmp')();
 
 provide('powerup', PowerAnalytics);

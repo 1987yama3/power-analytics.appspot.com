@@ -1,18 +1,29 @@
-var parseUrl = require('url');
+import url from 'url';
 
 module.exports = function() {
-  var current_url = parseUrl(location.href);
-  var referrer_url = parseUrl(document.referrer);
-  var override_source = undefined;
-  if (current_url.query.indexOf('utm_source=') >= 0) return;
-  if (referrer_url.hostname == 't.co') override_source = 'twitter.com';
-  if (referrer_url.hostname == 'm.facebook.com'
-      || referrer_url.hostname == 'l.facebook.com'
-      || referrer_url.hostname == 'lm.facebook.com') {
-    override_source = 'facebook.com';
+  const tracker = this.tracker;
+  const currentUrl = url.parse(location.href, true);
+  const referrerUrl = url.parse(document.referrer, true);
+  let overrideSource = undefined;
+
+  if (currentUrl.query.utm_source !== undefined) {
+    return;
+  }
+  if (currentUrl.query.utm_id !== undefined) {
+    return;
   }
 
-  if (override_source) {
-    this.tracker.set('campaignSource', override_source);
+  if (referrerUrl.hostname == 't.co') {
+    overrideSource = 'twitter.com';
+  }
+
+  if (referrerUrl.hostname == 'm.facebook.com'
+      || referrerUrl.hostname == 'l.facebook.com'
+      || referrerUrl.hostname == 'lm.facebook.com') {
+    overrideSource = 'facebook.com';
+  }
+
+  if (overrideSource !== undefined) {
+    tracker.set('campaignSource', overrideSource);
   }
 };

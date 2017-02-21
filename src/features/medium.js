@@ -1,50 +1,56 @@
-var parseUrl = require('url');
+import url from 'url';
 
 module.exports = function() {
-  var current_url = parseUrl(location.href);
-  var referrer_url = parseUrl(document.referrer);
-  var override_medium = undefined;
-  if (typeof(current_url.query['utm_medium']) !== 'undefined') return;
+  const currentUrl = url.parse(location.href, true);
+  const referrerUrl = url.parse(document.referrer, true);
+  let overrideMedium = undefined;
+
+  if (currentUrl.query.utm_medium) {
+    return;
+  }
+  if (currentUrl.query.utm_id) {
+    return;
+  }
 
   // Email
-  if (referrer_url.hostname.indexOf('mail.yahoo.co.jp') >= 0
-      || referrer_url.hostname.indexOf('mail.live.com') >= 0
-      || referrer_url.hostname.indexOf('mail.google.com') >= 0
-      || referrer_url.hostname.indexOf('alpha-mail.ne.jp') >= 0
-      || referrer_url.hostname === 'email.exite.co.jp'
-      || referrer_url.hostname === 'outlook.office365.com'
-      || referrer_url.hostname === 'mail.ocn.ne.jp'
-      || referrer_url.hostname === 'webmail.sso.biglobe.ne.jp'
-      || referrer_url.hostname === 'webmail.so-net.ne.jp'
-      || referrer_url.hostname === 'eowebmail.eonet.jp'
-      || referrer_url.hostname === 'mail.auone-net.jp'
-      || referrer_url.hostname === 'mail.goo.jp'
-      || referrer_url.hostname === 'mail.commufa.jp'
-      || referrer_url.hostname === 'webmail.cyberhome.ne.jp'
-      || referrer_url.hostname.match(/mail[0-9]+.bizmail[0-9]+.com/)
+  if (referrerUrl.hostname.indexOf('mail.yahoo.co.jp') >= 0
+      || referrerUrl.hostname.indexOf('mail.live.com') >= 0
+      || referrerUrl.hostname.indexOf('mail.google.com') >= 0
+      || referrerUrl.hostname.indexOf('alpha-mail.ne.jp') >= 0
+      || referrerUrl.hostname === 'email.exite.co.jp'
+      || referrerUrl.hostname === 'outlook.office365.com'
+      || referrerUrl.hostname === 'mail.ocn.ne.jp'
+      || referrerUrl.hostname === 'webmail.sso.biglobe.ne.jp'
+      || referrerUrl.hostname === 'webmail.so-net.ne.jp'
+      || referrerUrl.hostname === 'eowebmail.eonet.jp'
+      || referrerUrl.hostname === 'mail.auone-net.jp'
+      || referrerUrl.hostname === 'mail.goo.jp'
+      || referrerUrl.hostname === 'mail.commufa.jp'
+      || referrerUrl.hostname === 'webmail.cyberhome.ne.jp'
+      || referrerUrl.hostname.match(/mail[0-9]+.bizmail[0-9]+.com/)
   ) {
-    override_medium = 'email';
+    overrideMedium = 'email';
   }
 
   // Organic
   // None
 
   // Social
-  if (referrer_url.hostname === 't.co'
-      || referrer_url.hostname.match(/(l?m?\.)?facebook.com/)
+  if (referrerUrl.hostname === 't.co'
+      || referrerUrl.hostname.match(/(l?m?\.)?facebook.com/)
   ) {
-    override_medium = 'social';
+    overrideMedium = 'social';
   }
 
   // Rss Reader
-  if (referrer_url.hostname === 'reader.livedoor.com'
-      || referrer_url.hostname === 'feedly.com'
-      || referrer_url.hostname === 'feeds.feedburner.com'
+  if (referrerUrl.hostname === 'reader.livedoor.com'
+      || referrerUrl.hostname === 'feedly.com'
+      || referrerUrl.hostname === 'feeds.feedburner.com'
   ) {
-    override_medium = 'rss';
+    overrideMedium = 'rss';
   }
 
-  if (override_medium) {
-    this.tracker.set('campaignMedium', override_medium);
+  if (overrideMedium) {
+    this.tracker.set('campaignMedium', overrideMedium);
   }
 };
