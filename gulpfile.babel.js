@@ -9,6 +9,7 @@ import clean from 'gulp-clean';
 import eslint from 'gulp-eslint';
 import { protractor } from 'gulp-protractor';
 import mocha from 'gulp-mocha';
+const exec = require('child_process').exec;
 
 import * as server from './test/e2e/server';
 
